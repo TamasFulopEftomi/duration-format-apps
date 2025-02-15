@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"
+      xml:lang="en" lang="en">
+<h:head>
+    <title>#{msg.hrdfa_title}</title>
+    <h:outputStylesheet library="webjars" name="/bootstrap/5.3.3/css/bootstrap.min.css"/>
+</h:head>
+<h:body>
+    <main class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1 class="mb-4">#{msg.hrdfa_heading}</h1>
+
+                <h:form id="calcForm">
+                <p:messages id="messages" autoUpdate="true" closable="true" style="margin-bottom:20x;" />
+
+                    <h:outputText id="errorOutput"
+                                  value="#{mainController.errorMessage}"
+                                  styleClass="alert alert-danger"
+                                  rendered="#{not empty mainController.errorMessage}" />
+
+                    <p:panel header="#{msg.short_description}" styleClass="mb-3">
+                        <div class="mb-3">
+                            <label for="secondsInput" class="form-label">#{msg.ask_input}</label>
+                            <p:inputText id="secondsInput"
+                                         value="#{mainController.inputSecondsInTotal}"
+                                         styleClass="form-control"
+                                         a:autofocus="true" />
+                        </div>
+                    </p:panel>
+
+                    <div class="d-flex gap-2 mb-3">
+                        <p:commandButton id="calculateButton"
+                                         value="#{msg.btn_convert}"
+                                         action="#{mainController.processInput}"
+                                         styleClass="btn btn-primary"
+                                         update="calcForm messages errorOutput" />
+                        <p:commandButton id="cancelButton"
+                                         value="#{msg.btn_cancel}"
+                                         action="index.xhtml?faces-redirect=true"
+                                         styleClass="btn btn-secondary"
+                                         ajax="false" />
+                    </div>
+
+                    <div class="mb-3">
+                        <h:outputText value="#{mainController.timeString}" styleClass="h4" />
+                    </div>
+                    <br/>
+                    <div class="text-center">
+                        <h:outputText value="#{msg.project_stack}" styleClass="p" />
+                    </div>
+                </h:form>
+            </div>
+        </div>
+    </main>
+</h:body>
+</html>
