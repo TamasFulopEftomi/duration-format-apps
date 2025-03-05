@@ -2,9 +2,7 @@ package com.eftomi.kata.controller;
 
 import com.eftomi.kata.dto.TimeUnitsDTO;
 import com.eftomi.kata.service.BusinessService;
-import com.eftomi.kata.service.BusinessServiceImpl;
 import com.eftomi.kata.service.PrintService;
-import com.eftomi.kata.service.PrintServiceImpl;
 import com.eftomi.kata.service.exception.NegativeSecondsException;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
@@ -30,7 +28,7 @@ public class MainController {
     @Getter
     private String errorMessage;
 
-    MainController(BusinessServiceImpl businessService, PrintServiceImpl printService) {
+    MainController(BusinessService businessService, PrintService printService) {
         this.businessService = businessService;
         this.printService = printService;
     }

@@ -4,9 +4,7 @@ import com.eftomi.kata.service.exception.NegativeSecondsException;
 import org.springframework.ui.Model;
 import com.eftomi.kata.dto.TimeUnitsDTO;
 import com.eftomi.kata.service.BusinessService;
-import com.eftomi.kata.service.BusinessServiceImpl;
 import com.eftomi.kata.service.PrintService;
-import com.eftomi.kata.service.PrintServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +17,7 @@ public class MainController {
     private final BusinessService businessService;
     private final PrintService printService;
 
-    MainController(BusinessServiceImpl businessService, PrintServiceImpl printService) {
+    MainController(BusinessService businessService, PrintService printService) {
         this.businessService = businessService;
         this.printService = printService;
     }

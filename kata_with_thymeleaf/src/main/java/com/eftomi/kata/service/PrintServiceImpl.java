@@ -12,9 +12,6 @@ import java.util.Comparator;
 @Service
 public class PrintServiceImpl implements PrintService {
 
-    private static final String PLURAL_SIGN = "s";
-    private static final String SPACE_SIGN = " ";
-
     /**
      * Formats the time units from the DTO into a readable string.
      * If the total seconds is 0, returns "now".
@@ -48,17 +45,26 @@ public class PrintServiceImpl implements PrintService {
     /**
      * Appends formatted time units to the given StringBuilder.
      *
-     * @param timeString      StringBuilder to append the result to
-     * @param timeUnitAmounts array of time unit values
+     * @param timeString       StringBuilder to append the result to
+     * @param timeUnitAmounts  array of time unit values
      * @param timeUnitDetailss array of time units details
      */
     private void prepareTimeString(StringBuilder timeString, int[] timeUnitAmounts, TimeUnitDetails[] timeUnitDetailss) {
-        boolean separator = false;
-        for (int i = 0; i < timeUnitAmounts.length; i++) {
+        boolean needSeparator = false;
+        int indexOfSmallestValidTimeUnit = 0;
+        int lengthOfTimeUnitAmounts = timeUnitAmounts.length;
+        for (int i = 0; i < lengthOfTimeUnitAmounts; i++) {
+            boolean validTimeUnitAmount = 0 < timeUnitAmounts[i];
+            if (validTimeUnitAmount && indexOfSmallestValidTimeUnit < i) {
+                indexOfSmallestValidTimeUnit = i;
+            }
+        }
+
+        for (int i = 0; i < lengthOfTimeUnitAmounts; i++) {
             boolean validTimeUnitAmount = 0 < timeUnitAmounts[i];
             if (validTimeUnitAmount) {
-                createTimeString(separator, timeString, timeUnitDetailss[i], timeUnitAmounts[i]);
-                separator = true;
+                createTimeString(i, indexOfSmallestValidTimeUnit, needSeparator, timeString, timeUnitDetailss[i], timeUnitAmounts[i]);
+                needSeparator = true;
             }
         }
     }
@@ -68,14 +74,22 @@ public class PrintServiceImpl implements PrintService {
      * Adds a separator if needed, then appends the time amount and unit name,
      * adding a plural sign if the amount is greater than one.
      *
-     * @param separator       whether to prepend a separator
-     * @param timeString      StringBuilder to append to
-     * @param timeUnitDetails the details of the time unit
-     * @param timeUnitAmount  the amount of the time unit
+     * @param indexOfTimeUnit               index of time unit
+     * @param indexOfSmallestValidTimeUnit  index of smallest valid time unit
+     * @param needSeparator                 whether to prepend a separator
+     * @param timeString                    StringBuilder to append to
+     * @param timeUnitDetails               the details of the time unit
+     * @param timeUnitAmount                the amount of the time unit
      */
-    private void createTimeString(boolean separator, StringBuilder timeString, TimeUnitDetails timeUnitDetails, int timeUnitAmount) {
-        if (separator) {
-            timeString.append(timeUnitDetails.getSeparator());
+    private void createTimeString(int indexOfTimeUnit, int indexOfSmallestValidTimeUnit, boolean needSeparator,
+                                  StringBuilder timeString, TimeUnitDetails timeUnitDetails, int timeUnitAmount) {
+        boolean lastSeparator = indexOfTimeUnit == indexOfSmallestValidTimeUnit;
+        if (needSeparator) {
+            if (lastSeparator) {
+                timeString.append(LAST_SEPARATOR);
+            } else {
+                timeString.append(MID_SEPARATOR);
+            }
         }
         timeString.append(timeUnitAmount).append(SPACE_SIGN).append(timeUnitDetails.getName());
         boolean moreThanOneTimeUnitAmount = 1 < timeUnitAmount;
