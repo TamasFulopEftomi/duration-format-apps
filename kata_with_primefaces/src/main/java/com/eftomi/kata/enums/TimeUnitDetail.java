@@ -3,7 +3,7 @@ package com.eftomi.kata.enums;
 import lombok.Getter;
 
 @Getter
-public enum TimeUnitDetails {
+public enum TimeUnitDetail {
     SEC(1, "second"),
     MIN(60, "minute"),
     HOUR(3_600, "hour"),
@@ -13,7 +13,7 @@ public enum TimeUnitDetails {
     private final int sec;
     private final String name;
 
-    TimeUnitDetails(int sec, String name) {
+    TimeUnitDetail(int sec, String name) {
         this.sec = sec;
         this.name = name;
     }

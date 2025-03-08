@@ -1,7 +1,7 @@
 package com.eftomi.kata.service;
 
 import com.eftomi.kata.dto.TimeUnitDTO;
-import com.eftomi.kata.enums.TimeUnitDetails;
+import com.eftomi.kata.enums.TimeUnitDetail;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +27,7 @@ public class PrintServiceImpl implements PrintService {
                 timeUnitDTO.years(), timeUnitDTO.days(), timeUnitDTO.hours(), timeUnitDTO.minutes(), timeUnitDTO.seconds()
         };
 
-        TimeUnitDetails[] timeUnitDetailss = getTimeUnitDetailss();
+        TimeUnitDetail[] timeUnitDetails = getTimeUnitDetails();
 
         StringBuilder timeString = new StringBuilder();
 
@@ -36,7 +36,7 @@ public class PrintServiceImpl implements PrintService {
         if (zeroSecondsInTotal) {
             timeString.append("now");
         } else {
-            prepareTimeString(timeString, timeUnits, timeUnitDetailss);
+            prepareTimeString(timeString, timeUnits, timeUnitDetails);
         }
         log.info("MSG: timeString[" + timeString + "] has been created.");
         return timeString.toString();
@@ -47,9 +47,9 @@ public class PrintServiceImpl implements PrintService {
      *
      * @param timeString       StringBuilder to append the result to
      * @param timeUnitAmounts  array of time unit values
-     * @param timeUnitDetailss array of time units details
+     * @param timeUnitDetails  array of time unit details
      */
-    private void prepareTimeString(StringBuilder timeString, int[] timeUnitAmounts, TimeUnitDetails[] timeUnitDetailss) {
+    private void prepareTimeString(StringBuilder timeString, int[] timeUnitAmounts, TimeUnitDetail[] timeUnitDetails) {
         boolean needSeparator = false;
         int indexOfSmallestValidTimeUnit = 0;
         int lengthOfTimeUnitAmounts = timeUnitAmounts.length;
@@ -63,7 +63,7 @@ public class PrintServiceImpl implements PrintService {
         for (int i = 0; i < lengthOfTimeUnitAmounts; i++) {
             boolean validTimeUnitAmount = 0 < timeUnitAmounts[i];
             if (validTimeUnitAmount) {
-                createTimeString(i, indexOfSmallestValidTimeUnit, needSeparator, timeString, timeUnitDetailss[i], timeUnitAmounts[i]);
+                createTimeString(i, indexOfSmallestValidTimeUnit, needSeparator, timeString, timeUnitDetails[i], timeUnitAmounts[i]);
                 needSeparator = true;
             }
         }
@@ -78,11 +78,11 @@ public class PrintServiceImpl implements PrintService {
      * @param indexOfSmallestValidTimeUnit  index of smallest valid time unit
      * @param needSeparator                 whether to prepend a separator
      * @param timeString                    StringBuilder to append to
-     * @param timeUnitDetails               the details of the time unit
+     * @param timeUnitDetail                the details of the time unit
      * @param timeUnitAmount                the amount of the time unit
      */
     private void createTimeString(int indexOfTimeUnit, int indexOfSmallestValidTimeUnit, boolean needSeparator,
-                                  StringBuilder timeString, TimeUnitDetails timeUnitDetails, int timeUnitAmount) {
+                                  StringBuilder timeString, TimeUnitDetail timeUnitDetail, int timeUnitAmount) {
         boolean lastSeparator = indexOfTimeUnit == indexOfSmallestValidTimeUnit;
         if (needSeparator) {
             if (lastSeparator) {
@@ -91,7 +91,7 @@ public class PrintServiceImpl implements PrintService {
                 timeString.append(MID_SEPARATOR);
             }
         }
-        timeString.append(timeUnitAmount).append(SPACE_SIGN).append(timeUnitDetails.getName());
+        timeString.append(timeUnitAmount).append(SPACE_SIGN).append(timeUnitDetail.getName());
         boolean moreThanOneTimeUnitAmount = 1 < timeUnitAmount;
         if (moreThanOneTimeUnitAmount) {
             timeString.append(PLURAL_SIGN);
@@ -103,10 +103,10 @@ public class PrintServiceImpl implements PrintService {
      *
      * @return sorted array of TimeUnitDetails
      */
-    private TimeUnitDetails[] getTimeUnitDetailss() {
-        return Arrays.stream(TimeUnitDetails.values())
-                .sorted(Comparator.comparingInt(TimeUnitDetails::getSec)
+    private TimeUnitDetail[] getTimeUnitDetails() {
+        return Arrays.stream(TimeUnitDetail.values())
+                .sorted(Comparator.comparingInt(TimeUnitDetail::getSec)
                         .reversed())
-                .toArray(TimeUnitDetails[]::new);
+                .toArray(TimeUnitDetail[]::new);
     }
 }

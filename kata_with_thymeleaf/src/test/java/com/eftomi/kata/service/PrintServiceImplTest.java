@@ -1,7 +1,7 @@
 package com.eftomi.kata.service;
 
 import com.eftomi.kata.dto.TimeUnitDTO;
-import com.eftomi.kata.enums.TimeUnitDetails;
+import com.eftomi.kata.enums.TimeUnitDetail;
 import org.junit.jupiter.api.Test;
 import java.lang.reflect.Method;
 import static org.junit.jupiter.api.Assertions.*;
@@ -50,10 +50,10 @@ public class PrintServiceImplTest {
     public void testPrepareTimeString() throws Exception {
         StringBuilder timeString = new StringBuilder();
         int[] timeUnitAmounts = {1, 2, 3, 4, 5};
-        TimeUnitDetails[] timeUnitDetails = TimeUnitDetails.values();
+        TimeUnitDetail[] timeUnitDetails = TimeUnitDetail.values();
 
         Method method = PrintServiceImpl.class.getDeclaredMethod(
-                "prepareTimeString", StringBuilder.class, int[].class, TimeUnitDetails[].class);
+                "prepareTimeString", StringBuilder.class, int[].class, TimeUnitDetail[].class);
         method.setAccessible(true);
         method.invoke(printService, timeString, timeUnitAmounts, timeUnitDetails);
 

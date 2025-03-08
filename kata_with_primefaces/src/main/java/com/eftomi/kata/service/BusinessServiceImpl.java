@@ -1,7 +1,7 @@
 package com.eftomi.kata.service;
 
 import com.eftomi.kata.dto.TimeUnitDTO;
-import com.eftomi.kata.enums.TimeUnitDetails;
+import com.eftomi.kata.enums.TimeUnitDetail;
 import com.eftomi.kata.service.exception.NegativeSecondsException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -49,9 +49,9 @@ public class BusinessServiceImpl implements BusinessService {
      * @return array of seconds per time unit
      */
     private int[] calculateTimeUnitAmounts() {
-        return Arrays.stream(TimeUnitDetails.values())
-                .sorted(Comparator.comparingInt(TimeUnitDetails::getSec).reversed())
-                .mapToInt(TimeUnitDetails::getSec)
+        return Arrays.stream(TimeUnitDetail.values())
+                .sorted(Comparator.comparingInt(TimeUnitDetail::getSec).reversed())
+                .mapToInt(TimeUnitDetail::getSec)
                 .toArray();
     }
 
