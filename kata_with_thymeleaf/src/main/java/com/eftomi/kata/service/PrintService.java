@@ -1,6 +1,6 @@
 package com.eftomi.kata.service;
 
-import com.eftomi.kata.dto.TimeUnitsDTO;
+import com.eftomi.kata.dto.TimeUnitDTO;
 
 public interface PrintService {
 
@@ -8,5 +8,5 @@ public interface PrintService {
     String SPACE_SIGN = " ";
     String MID_SEPARATOR = ", ";
     String LAST_SEPARATOR = " and ";
-    String processTimeUnits(TimeUnitsDTO timeUnitsDTO) throws NumberFormatException;
+    String processTimeUnit(TimeUnitDTO timeUnitDTO) throws NumberFormatException;
 }

@@ -1,6 +1,6 @@
 package com.eftomi.kata.service;
 
-import com.eftomi.kata.dto.TimeUnitsDTO;
+import com.eftomi.kata.dto.TimeUnitDTO;
 import com.eftomi.kata.enums.TimeUnitDetails;
 import org.junit.jupiter.api.Test;
 import java.lang.reflect.Method;
@@ -12,36 +12,36 @@ public class PrintServiceImplTest {
 
     @Test
     public void testProcessTimeUnitsWithPositiveSeconds() {
-        TimeUnitsDTO timeUnitsDTO
-                = new TimeUnitsDTO(31_626_061, 1, 1, 1, 1, 1);
-        String result = printService.processTimeUnits(timeUnitsDTO);
+        TimeUnitDTO timeUnitDTO
+                = new TimeUnitDTO(31_626_061, 1, 1, 1, 1, 1);
+        String result = printService.processTimeUnit(timeUnitDTO);
 
         assertEquals("1 year, 1 day, 1 hour, 1 minute and 1 second", result);
     }
 
     @Test
     public void testProcessTimeUnitsWithZeroSeconds() {
-        TimeUnitsDTO timeUnitsDTO
-                = new TimeUnitsDTO(0,0, 0, 0, 0, 0);
-        String result = printService.processTimeUnits(timeUnitsDTO);
+        TimeUnitDTO timeUnitDTO
+                = new TimeUnitDTO(0,0, 0, 0, 0, 0);
+        String result = printService.processTimeUnit(timeUnitDTO);
 
         assertEquals("now", result);
     }
 
     @Test
     public void testProcessTimeUnitsWithSingleTimeUnit() {
-        TimeUnitsDTO timeUnitsDTO
-                = new TimeUnitsDTO(86_460, 60, 0, 0, 1, 0);
-        String result = printService.processTimeUnits(timeUnitsDTO);
+        TimeUnitDTO timeUnitDTO
+                = new TimeUnitDTO(86_460, 60, 0, 0, 1, 0);
+        String result = printService.processTimeUnit(timeUnitDTO);
 
         assertEquals("1 day and 60 seconds", result);
     }
 
     @Test
     public void testProcessTimeUnitsWithMultipleTimeUnit() {
-        TimeUnitsDTO timeUnitsDTO
-                = new TimeUnitsDTO(63_072_002,2, 0, 0, 0, 2);
-        String result = printService.processTimeUnits(timeUnitsDTO);
+        TimeUnitDTO timeUnitDTO
+                = new TimeUnitDTO(63_072_002,2, 0, 0, 0, 2);
+        String result = printService.processTimeUnit(timeUnitDTO);
 
         assertEquals("2 years and 2 seconds", result);
     }

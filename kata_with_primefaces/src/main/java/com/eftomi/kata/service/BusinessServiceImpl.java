@@ -1,6 +1,6 @@
 package com.eftomi.kata.service;
 
-import com.eftomi.kata.dto.TimeUnitsDTO;
+import com.eftomi.kata.dto.TimeUnitDTO;
 import com.eftomi.kata.enums.TimeUnitDetails;
 import com.eftomi.kata.service.exception.NegativeSecondsException;
 import lombok.extern.slf4j.Slf4j;
@@ -30,17 +30,17 @@ public class BusinessServiceImpl implements BusinessService {
      * Converts total seconds into years, days, hours, minutes, and seconds.
      *
      * @param secondsInTotal total seconds to convert
-     * @return TimeUnitsDTO with the converted time units
+     * @return TimeUnitDTO with the converted time units
      */
     @Override
-    public TimeUnitsDTO secondsConverter(int secondsInTotal) {
+    public TimeUnitDTO secondsConverter(int secondsInTotal) {
         int[] timeUnits = calculateTimeUnitAmounts();
         int[] times = calculateTime(timeUnits, secondsInTotal);
 
-        //           Constructor -> new TimeUnitsDTO(totalSeconds, years, days, hours, minutes, seconds)
-        TimeUnitsDTO timeUnitsDTO = new TimeUnitsDTO(secondsInTotal, times[4], times[3], times[2], times[1], times[0]);
-        log.info("MSG: " + timeUnitsDTO + " has been created.");
-        return timeUnitsDTO;
+        //         Constructor -> new TimeUnitDTO(totalSeconds, years, days, hours, minutes, seconds)
+        TimeUnitDTO timeUnitDTO = new TimeUnitDTO(secondsInTotal, times[4], times[3], times[2], times[1], times[0]);
+        log.info("MSG: " + timeUnitDTO + " has been created.");
+        return timeUnitDTO;
     }
 
     /**

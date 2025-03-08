@@ -1,6 +1,6 @@
 package com.eftomi.kata.controller;
 
-import com.eftomi.kata.dto.TimeUnitsDTO;
+import com.eftomi.kata.dto.TimeUnitDTO;
 import com.eftomi.kata.service.BusinessService;
 import com.eftomi.kata.service.PrintService;
 import com.eftomi.kata.service.exception.NegativeSecondsException;
@@ -41,7 +41,7 @@ public class MainController {
             return;
         }
         errorMessage = "";
-        TimeUnitsDTO timeUnitsDTO = businessService.secondsConverter(inputSecondsInTotal);
-        timeString = printService.processTimeUnits(timeUnitsDTO);
+        TimeUnitDTO timeUnitDTO = businessService.secondsConverter(inputSecondsInTotal);
+        timeString = printService.processTimeUnit(timeUnitDTO);
     }
 }

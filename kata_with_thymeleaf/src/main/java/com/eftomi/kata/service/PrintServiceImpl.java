@@ -1,6 +1,6 @@
 package com.eftomi.kata.service;
 
-import com.eftomi.kata.dto.TimeUnitsDTO;
+import com.eftomi.kata.dto.TimeUnitDTO;
 import com.eftomi.kata.enums.TimeUnitDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,14 +17,14 @@ public class PrintServiceImpl implements PrintService {
      * If the total seconds is 0, returns "now".
      * Negative amount is not acceptable. (checked on input)
      *
-     * @param timeUnitsDTO the DTO containing time units and values
+     * @param timeUnitDTO the DTO containing time units and values
      * @return a formatted time string
      */
     @Override
-    public String processTimeUnits(TimeUnitsDTO timeUnitsDTO) {
-        int secondsInTotal = timeUnitsDTO.secondsInTotal();
-        int[] timeUnitss = {
-                timeUnitsDTO.years(), timeUnitsDTO.days(), timeUnitsDTO.hours(), timeUnitsDTO.minutes(), timeUnitsDTO.seconds()
+    public String processTimeUnit(TimeUnitDTO timeUnitDTO) {
+        int secondsInTotal = timeUnitDTO.secondsInTotal();
+        int[] timeUnits = {
+                timeUnitDTO.years(), timeUnitDTO.days(), timeUnitDTO.hours(), timeUnitDTO.minutes(), timeUnitDTO.seconds()
         };
 
         TimeUnitDetails[] timeUnitDetailss = getTimeUnitDetailss();
@@ -36,7 +36,7 @@ public class PrintServiceImpl implements PrintService {
         if (zeroSecondsInTotal) {
             timeString.append("now");
         } else {
-            prepareTimeString(timeString, timeUnitss, timeUnitDetailss);
+            prepareTimeString(timeString, timeUnits, timeUnitDetailss);
         }
         log.info("MSG: timeString[" + timeString + "] has been created.");
         return timeString.toString();

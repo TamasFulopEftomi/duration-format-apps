@@ -2,7 +2,7 @@ package com.eftomi.kata.controller;
 
 import com.eftomi.kata.service.exception.NegativeSecondsException;
 import org.springframework.ui.Model;
-import com.eftomi.kata.dto.TimeUnitsDTO;
+import com.eftomi.kata.dto.TimeUnitDTO;
 import com.eftomi.kata.service.BusinessService;
 import com.eftomi.kata.service.PrintService;
 import org.springframework.stereotype.Controller;
@@ -37,8 +37,8 @@ public class MainController {
         try {
             int inputSeconds = Integer.parseInt(inputSecondsInTotal);
             businessService.validateInputAmount(inputSeconds);
-            TimeUnitsDTO timeUnitsDTO = businessService.secondsConverter(inputSeconds);
-            String timeString = printService.processTimeUnits(timeUnitsDTO);
+            TimeUnitDTO timeUnitDTO = businessService.secondsConverter(inputSeconds);
+            String timeString = printService.processTimeUnit(timeUnitDTO);
             model.addAttribute("inputSecondsInTotal", inputSecondsInTotal);
             model.addAttribute("timeString", timeString);
         } catch (NumberFormatException e) {

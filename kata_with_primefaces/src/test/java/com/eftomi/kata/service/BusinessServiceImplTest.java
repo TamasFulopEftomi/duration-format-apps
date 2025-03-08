@@ -1,6 +1,6 @@
 package com.eftomi.kata.service;
 
-import com.eftomi.kata.dto.TimeUnitsDTO;
+import com.eftomi.kata.dto.TimeUnitDTO;
 import org.junit.jupiter.api.Test;
 import java.lang.reflect.Method;
 import static org.junit.jupiter.api.Assertions.*;
@@ -39,13 +39,13 @@ public class BusinessServiceImplTest {
 
     @Test
     public void testSecondsConverter() {
-        TimeUnitsDTO timeUnitsDTO = businessService.secondsConverter(86461);
+        TimeUnitDTO timeUnitDTO = businessService.secondsConverter(86461);
 
-        assertNotNull(timeUnitsDTO);
-        assertEquals(86461, timeUnitsDTO.secondsInTotal());
-        assertEquals(1, timeUnitsDTO.seconds());
-        assertEquals(1, timeUnitsDTO.minutes());
-        assertEquals(1, timeUnitsDTO.days());
+        assertNotNull(timeUnitDTO);
+        assertEquals(86461, timeUnitDTO.secondsInTotal());
+        assertEquals(1, timeUnitDTO.seconds());
+        assertEquals(1, timeUnitDTO.minutes());
+        assertEquals(1, timeUnitDTO.days());
 
     }
 }
